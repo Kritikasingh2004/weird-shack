@@ -1,7 +1,13 @@
-export default function Home() {
+export default async function Home() {
+  const res = await fetch(process.env.API_URL!, {
+    cache: "no-store",
+  });
+
+  const data = await res.json();
+
   return (
     <div>
-      <h1>Hello World</h1>
+      <h1>{data.status}</h1>
     </div>
   );
 }

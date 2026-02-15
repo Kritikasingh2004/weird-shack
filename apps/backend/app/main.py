@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
@@ -16,4 +17,4 @@ app.add_middleware(
 
 @app.get("/")
 def app_def():
-    return{"Status":"Hello world"}
+    return{"status":"Yoooo Girl!!"}
