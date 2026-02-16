@@ -22,10 +22,16 @@ def create_product(product: ProductCreate):
 
 @router.delete("/{id}", status_code=204)
 def delete_product(id:UUID):
-    product_service.delete_product()
-    return {"message":"Deleted"}
+    try:
+        product_service.delete_product(id)
+        return None
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Product not found")
 
 
-@router.patch("/{id}")
+@router.patch("/{id}", status_code=200, response_model=ProductRead)
 def update_product(id:UUID, product: ProductUpdate):
-    return product_service.ProductUpdate(id, product)
+    try:
+        return product_service.update_product(id, product)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Product not found")

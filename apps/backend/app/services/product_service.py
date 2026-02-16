@@ -13,7 +13,19 @@ products_db : list[ProductRead] = [
         "quantity_sold": 0,
         "date_created": datetime.now(),
         "date_updated": datetime.now(),
-    }
+    },
+    {
+    "name": "china",
+    "description": "happy chinese new year",
+    "price": 67,
+    "currency": "INR",
+    "quantity": 69,
+    "image_url": "ni_hao.png",
+    "quantity_sold": 0,
+    "id": UUID("a13a2890-a775-40e2-92b6-e74a7ce8a9f5"),
+    "date_created": "2026-02-16T20:05:49.024720",
+    "date_updated": "2026-02-16T20:05:49.024730"
+  }
 ]
 
 def get_products()-> list[ProductRead]:
@@ -42,6 +54,8 @@ def update_product(id: UUID, product: ProductUpdate) -> ProductRead:
     for p in products_db:
         if p["id"] ==id:
             update_data = product.model_dump(exclude_unset=True)
+            if "quantity_sold" in update_data and update_data["quantity_sold"] is not None:
+                p["quantity"]= max(0, p["quantity"]-update_data["quantity_sold"])
             p.update(update_data)
             p["date_updated"] = datetime.now()
             return p

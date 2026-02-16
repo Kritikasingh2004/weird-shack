@@ -27,9 +27,10 @@ class ProductUpdate(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     price: Optional[int] = Field(default=None, gt=0)
+    currency: Optional[Literal["INR", "USD"]] = None 
     quantity: Optional[int] = Field(default=None, ge=0)
     image_url: Optional[str] = None
-    quantity_sold: int
+    quantity_sold: Optional[int] = None
 
 
 class ProductRead(ProductBase):
