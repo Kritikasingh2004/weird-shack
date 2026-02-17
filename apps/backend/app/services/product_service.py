@@ -19,9 +19,9 @@ products_db : list[ProductRead] = [
     "description": "happy chinese new year",
     "price": 67,
     "currency": "INR",
-    "quantity": 69,
+    "quantity":0,
     "image_url": "ni_hao.png",
-    "quantity_sold": 0,
+    "quantity_sold": 8,
     "id": UUID("a13a2890-a775-40e2-92b6-e74a7ce8a9f5"),
     "date_created": "2026-02-16T20:05:49.024720",
     "date_updated": "2026-02-16T20:05:49.024730"
