@@ -9,7 +9,7 @@ const NavBar = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="w-full py-4 flex items-center justify-end text-2xl ">
+    <div className="max-w-[90%] mx-auto py-4 flex items-center justify-end text-2xl ">
       <SeachBar />
       <Button
         size="icon"

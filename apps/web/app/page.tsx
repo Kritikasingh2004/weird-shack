@@ -8,7 +8,7 @@ export default async function Home() {
   const products = await res.json();
 
   return (
-    <div className="h-screen">
+    <div className="h-screen max-w-[90%] mx-auto">
       <h1 className="text-5xl font-heading mt-20 mb-7 px-4">
         Welcome to Weird Shack
       </h1>

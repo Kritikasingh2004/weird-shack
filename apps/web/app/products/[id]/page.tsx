@@ -40,7 +40,7 @@ export default async function ProductPage({
   const isList = Array.isArray(description) && description.length > 1;
 
   return (
-    <div className="py-10 space-y-8">
+    <div className="max-w-[90%] mx-auto py-10 space-y-8">
       <Link
         href="/"
         className="inline-flex items-center gap-2 font-bold hover:underline"

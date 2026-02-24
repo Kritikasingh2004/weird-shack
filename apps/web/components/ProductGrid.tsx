@@ -13,13 +13,14 @@ import {
 export interface Product {
   id: string;
   name: string;
-  description: string;
+  description: string[];
   price: number;
   currency: string;
   quantity: number;
   quantity_sold: number;
   image_url?: string;
   date_created: string | Date;
+  date_updated: string | Date;
 }
 
 const ProductGrid = ({ products }: { products: Product[] }) => {
