@@ -97,7 +97,7 @@ export default async function ProductPage({
             </div>
           </div>
 
-          {/* Moved Description Section */}
+          {/* Description Section */}
           <div className="space-y-4 pl-2">
             <h3 className="font-heading uppercase text-sm border-b-2 border-border inline-block">
               Product Info

@@ -49,11 +49,11 @@ const ProductForm = ({ product, onProductSaved }: ProductFormProps) => {
 
       <DialogContent className="sm:max-w-[500px] border-4 border-black shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] rounded-none">
         <form
-          onSubmit={async (e) => {
+          onSubmit={(e) => {
             e.preventDefault();
-            setIsLoading(true);
 
             const formData = new FormData(e.currentTarget);
+
             const data = {
               name: String(formData.get("name")),
               price: Number(formData.get("price")),
@@ -65,36 +65,32 @@ const ProductForm = ({ product, onProductSaved }: ProductFormProps) => {
 
             const method = isEditing ? "PATCH" : "POST";
 
-            try {
-              const response = await fetch("/api/products", {
-                method,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  ...data,
-                  id: product?.id,
-                }),
-              });
+            const request = fetch("/api/products", {
+              method,
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(
+                isEditing ? { ...data, id: product?.id } : data,
+              ),
+            }).then(async (res) => {
+              if (!res.ok) throw new Error("Request failed");
+              return res.json();
+            });
 
-              if (!response.ok) {
-                throw new Error("Failed request");
-              }
-
-              const result = await response.json();
-
-              onProductSaved(result);
-
-              toast.success(
-                `Product ${isEditing ? "updated" : "created"} successfully!`,
-              );
-
-              setIsOpen(false);
-            } catch (error) {
-              toast.error(
-                `Failed to ${isEditing ? "update" : "create"} product.`,
-              );
-            } finally {
-              setIsLoading(false);
-            }
+            toast.promise(request, {
+              loading: isEditing
+                ? "Updating product..."
+                : "Creating product...",
+              success: (result) => {
+                onProductSaved(result);
+                setIsOpen(false);
+                return isEditing
+                  ? "Product updated successfully!"
+                  : "Product created successfully!";
+              },
+              error: isEditing
+                ? "Failed to update product."
+                : "Failed to create product.",
+            });
           }}
         >
           <DialogHeader>
